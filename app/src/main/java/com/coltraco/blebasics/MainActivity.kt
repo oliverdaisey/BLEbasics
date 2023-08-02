@@ -119,7 +119,7 @@ class MainActivity : ComponentActivity() {
         }
         // at this point we can start the scan
         else {
-            bleScanner.startScan(null, scanSettings, scanCallback)
+            bleScanner.startScan(mutableListOf(scanFilter), scanSettings, scanCallback)
             isScanning = true
         }
     }
