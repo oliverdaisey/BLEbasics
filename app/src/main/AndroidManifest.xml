@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <!-- START BLUETOOTH PERMISSIONS -->
+
+    <!-- Legacy permission that allows app to connect to Bluetooth devices -->
+    <uses-permission android:name="android.permission.BLUETOOTH"
+        android:maxSdkVersion="30" />
+
+    <!-- Legacy permission that allows the app to scan for
+    and bond with Bluetooth devices.-->
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"
+        android:maxSdkVersion="30" />
+
+    <!-- Between Android 6 and Android 11 (inclusive on both ends),
+    location permission is required for the app to get BLE scan results.
+    The main motivation behind having to explicitly require the users to
+    grant this permission is to protect users’ privacy.  A BLE scan can
+    often unintentionally reveal the user’s location to unscrupulous app
+    developers who scan for specific BLE beacons, or some BLE device may
+    advertise location-specific information. Before Android 10,
+    ACCESS_COARSE_LOCATION can be used to gain access to BLE scan results,
+    but we use ACCESS_FINE_LOCATION instead since it works for all versions
+    of Android. -->
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION"
+        android:maxSdkVersion="30" />
+
+    <!-- Apps targeting Android 12 (API 31) and above must request for this
+    permission in addition to ACCESS_FINE_LOCATION.-->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"
+        android:maxSdkVersion="30" />
+
+    <!-- For devices running Android 12 and newer, developers can finally
+    request for explicit permission to perform Bluetooth scans without having
+    to obtain location access.-->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"
+        android:usesPermissionFlags="neverForLocation"
+        tools:targetApi="s" />
+
+    <!-- For devices running Android 12 and newer, developers can request
+    for this permission in order to connect to Bluetooth peripherals that
+    are currently bonded to the system.-->
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT" />
+
+    <!-- END BLUETOOTH PERMISSIONS -->
+
+    <!-- Declare that this app *requires* bluetooth LE hardware -->
+    <uses-feature
+        android:name="android.hardware.bluetooth_le"
+        android:required="true" />
+
+    <application
+        android:allowBackup="true"
+        android:dataExtractionRules="@xml/data_extraction_rules"
+        android:fullBackupContent="@xml/backup_rules"
+        android:icon="@mipmap/ic_launcher"
+        android:label="@string/app_name"
+        android:roundIcon="@mipmap/ic_launcher_round"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.BLEbasics"
+        tools:targetApi="31">
+        <activity
+            android:name=".MainActivity"
+            android:exported="true"
+            android:label="@string/app_name"
+            android:theme="@style/Theme.BLEbasics">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+    </application>
+</manifest>
